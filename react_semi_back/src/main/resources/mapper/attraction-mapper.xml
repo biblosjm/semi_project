@@ -6,7 +6,7 @@
 		  INTO AREA_TBL
 		VALUES
 		     (
-		       AREA_SEQ.NEXTVAL
+		       nextval('area_seq')
 		     , #{areaCode}
 		     , #{areaName}
 		     )
@@ -30,7 +30,7 @@
 		  INTO SIGUNGU_TBL
 		VALUES
 		     (
-		       SIGUNGU_SEQ.NEXTVAL
+		       nextval('sigungu_seq')
 		     , #{sigunguCode}
 		     , #{sigunguName}
 		     , #{areaNo}
@@ -57,7 +57,7 @@
 		  INTO ATTRACTION_TBL
 		VALUES
 		     (
-		       ATTRACTION_SEQ.NEXTVAL
+		       nextval('attraction_seq')
 		     , #{attractionAddr}
 		     , #{attractionContentId}
 		     , #{attractionThumbnail}
@@ -97,7 +97,7 @@
 				 <when test="checkedItems != null and checkedItems.size != 0">
 					 AND SIGUNGU_NO IN
 					 <foreach collection="checkedItems" item="item" open="(" close=")" separator=",">
-						 #{item}
+						 CAST(#{item} AS BIGINT)
 					 </foreach>
 				 </when>
 				 <otherwise>
@@ -121,7 +121,7 @@
 			 </if>
 		 </where>
 	     ORDER BY ATTRACTION_NO
-	    OFFSET #{page} * #{size} ROWS FETCH NEXT #{size} ROWS ONLY
+	    LIMIT #{size} OFFSET #{page} * #{size}
 	</select>
 	
 	<select id="selectAttractionCount" resultType="Integer">
@@ -135,7 +135,7 @@
 				 <when test="checkedItems != null and checkedItems.size != 0">
 					 AND SIGUNGU_NO IN
 					 <foreach collection="checkedItems" item="item" open="(" close=")" separator=",">
-						 #{item}
+						 CAST(#{item} AS BIGINT)
 					 </foreach>
 				 </when>
 				 <otherwise>
@@ -198,7 +198,7 @@
 		  INTO ATTRACTION_WISH_TBL
 		VALUES
 		     (
-		       ATTRACTION_WISH_SEQ.NEXTVAL
+		       nextval('attraction_wish_seq')
 		     , #{memberId}
 		     , #{attractionNo} 
 		     )
@@ -245,7 +245,7 @@
 				 <when test="checkedItems != null and checkedItems.size != 0">
 					 AND SIGUNGU_NO IN
 					 <foreach collection="checkedItems" item="item" open="(" close=")" separator=",">
-						 #{item}
+						 CAST(#{item} AS BIGINT)
 					 </foreach>
 				 </when>
 				 <otherwise>
@@ -297,7 +297,7 @@
 	    JOIN ATTRACTION_WISH_TBL W ON (A.ATTRACTION_NO = W.ATTRACTION_NO)
 	    WHERE W.MEMBER_ID = #{memberId}
 	    ORDER BY W.ATTRACTION_WISH_NO DESC
-	    OFFSET (#{page} * #{size}) ROWS FETCH NEXT #{size} ROWS ONLY
+	    LIMIT #{size} OFFSET (#{page} * #{size})
 	</select>
 	
 </mapper>

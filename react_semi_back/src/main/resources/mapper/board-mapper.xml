@@ -53,7 +53,7 @@
         </otherwise>
     </choose>
     
-    offset #{page} * #{size} rows fetch next #{size} rows only
+    limit #{size} offset #{page} * #{size}
 </select>
 
 	<select id="selectBoardCount" resultType="Integer">
@@ -86,7 +86,7 @@
 	</select>
 
 	<select id="getNewBoardNo" resultType="int">
-    	select board_seq.nextval from dual
+    	select nextval('board_seq')
 	</select>
 
 <insert id="inserBoard">
@@ -96,7 +96,7 @@
         attraction_no, location_no, place_name, address_name
     ) values (
         #{boardNo}, #{boardCategory}, #{boardTitle}, #{boardContent, jdbcType=CLOB},
-        #{boardThumb, jdbcType=VARCHAR}, #{boardWriter}, sysdate, 1,
+        #{boardThumb, jdbcType=VARCHAR}, #{boardWriter}, current_timestamp, 1,
         <choose>
             <when test="boardCategory == 1">
                 #{attractionNo, jdbcType=NUMERIC}, 
@@ -199,7 +199,7 @@
         #{boardCommentContent},
         #{boardCommentWriter},
         #{boardNo},
-        sysdate,
+        current_timestamp,
         1  )
 	</insert>
 	
@@ -219,7 +219,7 @@
 	</select>
 	
 	<select id="selectNewBoardCommentNo" resultType="int">
-		select board_comment_seq.nextval from dual
+		select nextval('board_comment_seq')
 	</select>
 	
 	<select id="selectOneBoardComment" resultType="boardComment">
@@ -295,7 +295,7 @@
         	order by board_tbl.board_no desc
     	</if>
     
-    	offset #{page} * #{size} rows fetch next #{size} rows only
+    	limit #{size} offset #{page} * #{size}
 	</select>
 	
 	<!-- 내가 작성한 게시글 목록 페이지 조회 -->
@@ -328,7 +328,7 @@
         	order by board_tbl.board_no desc
     	</if>
     
-    	offset #{page} * #{size} rows fetch next #{size} rows only
+    	limit #{size} offset #{page} * #{size}
 	</select>
 	
 	<!-- 내가 작성한 댓글 조회 -->
@@ -365,7 +365,7 @@
         	</otherwise>
     	</choose>
     
-    offset #{page} * #{size} rows fetch next #{size} rows only
+    limit #{size} offset #{page} * #{size}
 	</select>
 
 	

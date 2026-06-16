@@ -3,7 +3,7 @@
 <mapper namespace="kr.co.iei.touritem.model.dao.TourItemDao">
 
 	<select id="getNewTourItemNo" resultType="int">
-		select tour_item_seq.nextval from dual
+		select nextval('tour_item_seq')
 	</select>
 	
 	<insert id="insertTourItem">
@@ -21,7 +21,7 @@
 	
 	<insert id="insertTourItemInfo">
 	insert into tour_item_info_tbl values(
-		tour_item_info_seq.nextval,
+		nextval('tour_item_info_seq'),
 		#{tourItemNo},
 		#{tourItemDay},
 		#{tourItemPlace},
@@ -32,7 +32,7 @@
 	
 	<insert id="insertTourItemImg">
 	insert into tour_item_img_tbl values(
-		tour_item_img_seq.nextval,
+		nextval('tour_item_img_seq'),
 		#{tourItemNo},
 		#{tourItemImgPath},
 		#{tourItemImgOrder}
@@ -48,13 +48,13 @@
 			<where>
 				<if test="status == 0">
             		tour_item_status = 0
-            		and end_period >= trunc(sysdate)
+            		and end_period >= current_date
         		</if>
         		<if test="status == 1">
             		tour_item_status = 1
         		</if>
         		<if test="status == 2">
-            		and end_period &lt; trunc(sysdate)
+            		and end_period &lt; current_date
         		</if>
 			<!-- 서치키워드가 null이 아니면서 공백이 아닐 때 (아무것도 입력하지 않고 검색 방지용) -->
 				<if test="searchKeyword != null and searchKeyword != ''">
@@ -87,13 +87,13 @@
 			<where>
 				<if test="status == 0">
             		tour_item_status = 0
-            		and end_period >= trunc(sysdate)
+            		and end_period >= current_date
         		</if>
         		<if test="status == 1">
             		tour_item_status = 1
         		</if>
         		<if test="status == 2">
-            		and end_period &lt; trunc(sysdate)
+            		and end_period &lt; current_date
         		</if>
 				<!-- 서치키워드가 null이 아니면서 공백이 아닐 때 (아무것도 입력하지 않고 검색 방지용) -->
 				<if test="searchKeyword != null and searchKeyword != ''">
@@ -163,7 +163,7 @@
 	<update id="autoUpdateTourItemStatus">
 		update tour_item_tbl
     		set tour_item_status = 1
-    		where end_period &lt; trunc(sysdate) 
+    		where end_period &lt; current_date 
       	and tour_item_status = 0
 	</update>
 	

@@ -22,7 +22,7 @@
 	<if test="order == 2">
 		order by course_no desc
 	</if>
-	offset #{page} * #{size} rows fetch next #{size} rows only
+	limit #{size} offset #{page} * #{size}
   </select>
   
   <select id="selectCourseAttractionList" resultType="courseAttractionList">
@@ -75,7 +75,7 @@
   </select>
   
   <select id="insertCourseNo" resultType="Integer">
-  	select course_seq.nextval from dual 
+  	select nextval('course_seq')
   </select>
   
   <insert id="insertCourse">
@@ -91,7 +91,7 @@
   <insert id="insertCourseAttraction">
   	insert into course_attraction_tbl values
   		(
-  			course_attraction_seq.nextval,
+  			nextval('course_attraction_seq'),
   			#{courseNo},
   			#{courseIndex},
   			#{attractionNo},
@@ -172,7 +172,7 @@
         order by course_no asc
     </if>
     
-    offset #{page} * #{size} rows fetch next #{size} rows only
+    limit #{size} offset #{page} * #{size}
   </select>
   
   <!-- 내가 작성한 코스 목록 조회 -->
@@ -202,7 +202,7 @@
         order by course_no asc
     </if>
     
-    offset #{page} * #{size} rows fetch next #{size} rows only
+    limit #{size} offset #{page} * #{size}
   </select>
   
   

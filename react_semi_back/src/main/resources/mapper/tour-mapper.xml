@@ -24,7 +24,7 @@
 		  INTO TOUR_WISHLIST_TBL
 		VALUES
 		     (
-		       TOUR_WISHLIST_SEQ.NEXTVAL
+		       nextval('tour_wishlist_seq')
 		     , #{tourWishlistName}
 		     , #{memberId}
 		     , #{emojiNo}
@@ -65,7 +65,7 @@
 		     , T.TOUR_ITEM_STATUS
 		 ORDER
             BY WISH_COUNT DESC
-        OFFSET 0 ROWS FETCH NEXT 8 ROWS ONLY
+        LIMIT 8 OFFSET 0
 		</if>
 		<if test="order == 1">
 		ORDER
@@ -85,7 +85,7 @@
 		  INTO TOUR_WISH_TBL
 		VALUES
 		     (
-		       TOUR_WISH_SEQ.NEXTVAL
+		       nextval('tour_wish_seq')
 		     , #{tourItemNo}
 		     , #{tourWishlistNo}
 		     )
@@ -250,7 +250,7 @@
 		  INTO TOUR_CART_TBL
 	    VALUES 
 	         (
-	           TOUR_CART_SEQ.NEXTVAL
+	           nextval('tour_cart_seq')
 	         , #{memberId}
 	         , #{tourItemNo}
 	         , #{tourCartStartDate}

@@ -19,7 +19,7 @@
 			#{memberAddrDetail, jdbcType=VARCHAR},
 			null,
 			0,
-			sysdate
+			current_timestamp
 		)
 	</insert>
 	
@@ -108,7 +108,7 @@
         	enroll_date desc
     	</if>
     	
-		offset #{page} * #{size} rows fetch next #{size} rows only
+		limit #{size} offset #{page} * #{size}
 	</select>
 	
 	<update id="changeMemberGrade">
