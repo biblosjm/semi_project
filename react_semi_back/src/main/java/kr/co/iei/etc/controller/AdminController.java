@@ -44,13 +44,7 @@ public class AdminController {
 	@Autowired
 	private TourItemService tourItemService;
 	
-	@Value("${file.root}")
-    private String root;
-	
-	//이미지 파일 경로
-	@Value("${file.url-prefix}")
-	private String urlPrefix;
-	
+
 	@Autowired
 	private FileUtils fileUtils;
 	@Autowired
@@ -75,15 +69,14 @@ public class AdminController {
 		//첨부파일(이미지) 저장 + 순서 저장(tourItemImgOrder)
 		List<TourItemImg> imgList = new ArrayList<TourItemImg>();
 		if(files != null) {//첨부파일(이미지) 있을 때만 작업
-			String savepath = root+"tourItemImg/";
+			String savepath = "tourItemImg/";
 			for(int i = 0; i < files.size(); i++) {
 				String fileName = fileUtils.upload(savepath, files.get(i));
 				
-				//이미지 경로 저장
+				//이미지 경로 저장 (Cloudinary URL이 그대로 리턴됨)
 				TourItemImg tourItemImg = new TourItemImg();
 				
-				String fullPath = urlPrefix + "tourItemImg/" + fileName;
-                tourItemImg.setTourItemImgPath(fullPath);
+                tourItemImg.setTourItemImgPath(fileName);
 				
 				//이미지 순서 세팅
 				if(tourItemImgOrder != null && tourItemImgOrder.size() > i) {
@@ -142,7 +135,7 @@ public class AdminController {
 		//이미지 파일 처리
 		List<TourItemImg> addImgList = new ArrayList<>();
 		if(files != null) {
-			String savepath = root + "tourItemImg/";
+			String savepath = "tourItemImg/";
 			for(int i = 0; i < files.size(); i++) {
 				MultipartFile file = files.get(i);
 				if(!file.isEmpty()) {
@@ -150,8 +143,7 @@ public class AdminController {
 					
 					TourItemImg img = new TourItemImg();
 					
-					String fullPath = urlPrefix + "tourItemImg/" + fileName;
-					img.setTourItemImgPath(fullPath);
+					img.setTourItemImgPath(fileName);
 					
 					img.setTourItemNo(tourItemNo);
 					
@@ -164,18 +156,9 @@ public class AdminController {
 		int result = tourItemService.updateTourItem(tourItem, addImgList);
 		
 		if(result > 0 && tourItem.getDeleteFilePath() != null) {
-			String savepath = root + "tourItemImg/";
+			String savepath = "tourItemImg/";
 			for(String deletePath : tourItem.getDeleteFilePath()) {
-				// 파일명만 추출
-                String fileNameOnly = deletePath;
-                if(deletePath.contains("/")) {
-                    fileNameOnly = deletePath.substring(deletePath.lastIndexOf("/") + 1);
-                }
-				
-				File deleteFile = new File(savepath + fileNameOnly);
-				if (deleteFile.exists()) {
-					deleteFile.delete();
-				}
+				fileUtils.deleteFile(savepath, deletePath);
 			}
 		}
 		return ResponseEntity.ok(result);
@@ -187,13 +170,9 @@ public class AdminController {
 		List<TourItemImg> deleteImgList = tourItemService.deleteTourItemImg(tourItemNo);
 		//파일 지워야 하니 List로 받기
 		if(deleteImgList != null) {
-			String savepath = root + "tourItemImg/";
+			String savepath = "tourItemImg/";
 			for(TourItemImg tourItemImg : deleteImgList) {
-				File deleteImg = new File(savepath + tourItemImg.getTourItemImgPath());
-				//존재 여부 확인
-				if(deleteImg.exists()) {					
-					deleteImg.delete();
-				}
+				fileUtils.deleteFile(savepath, tourItemImg.getTourItemImgPath());
 			}
 			return ResponseEntity.ok(1);
 		}

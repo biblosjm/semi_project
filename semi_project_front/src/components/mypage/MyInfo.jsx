@@ -295,7 +295,7 @@ const MemberProfileInfo = () => {
     form.append("file", file);
     axios
       .patch(
-        `${import.meta.env.VITE_IMG_SERVER}/members/${memberId}/thumbnail`,
+        `${import.meta.env.VITE_BACKSERVER}/members/${memberId}/thumbnail`,
         form,
         {
           headers: {
@@ -355,7 +355,9 @@ const MemberProfileInfo = () => {
         <img
           src={
             memberThumb
-              ? `${import.meta.env.VITE_IMG_SERVER}/member/thumb/${memberThumb}`
+              ? memberThumb.startsWith("http")
+                ? memberThumb
+                : `${import.meta.env.VITE_IMG_SERVER}/member/thumb/${memberThumb}`
               : userImg
           }
         />

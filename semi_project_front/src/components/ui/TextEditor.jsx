@@ -70,9 +70,10 @@ const MenuBar = ({ editor }) => {
           },
         })
         .then((res) => {
-          //공용폴더 이미지
-          const imageUrl = `${import.meta.env.VITE_IMG_SERVER}/editor/${res.data}`;
-          editor.chain().focus().setImage({ src: imageUrl }).run();
+          if (res.status === 200) {
+            const imageUrl = res.data; // 클라우디너리 URL 전체가 들어옴
+            editor.chain().focus().setImage({ src: imageUrl }).run();
+          }
         })
         .catch((err) => {
           console.log(err);

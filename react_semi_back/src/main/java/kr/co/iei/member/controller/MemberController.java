@@ -60,10 +60,7 @@ public class MemberController {
 	
 	@Autowired
 	private FileUtils fileUtils;
-	
-	@Value("${file.root}")
-	private String root;
-	
+
 	//아이디 중복 체크-------------------------------------------------------------------
 	@GetMapping(value = "/exists")
 	public ResponseEntity<?> dupCheckId(@RequestParam String memberId) {
@@ -134,7 +131,7 @@ public class MemberController {
 	@PatchMapping(value="{memberId}/thumbnail")//일부 정보 수정 @PatchMapping
 	public ResponseEntity<?> updateThumbnail(@PathVariable String memberId,
 												@ModelAttribute MultipartFile file) {
-		String savepath = root + "member/";
+		String savepath = "member/";
 		String memberThumb = fileUtils.upload(savepath, file);
 		Member m = new Member();
 		m.setMemberId(memberId);

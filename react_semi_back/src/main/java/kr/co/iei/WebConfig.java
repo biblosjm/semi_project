@@ -6,30 +6,14 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-//이미지를 브라우저에 보여주기 위한 설정
+//이제 클라우디너리를 사용하므로 로컬 이미지 리소스 핸들러가 필요하지 않습니다.
 @Configuration 
 public class WebConfig implements WebMvcConfigurer { 
-	@Value("${file.root}")
-	private String root;
-
+	// @Value("${file.root}")
+	// private String root;
 	
 	@Override 
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		//에디터 이미지
-		registry
-        .addResourceHandler("/editor/**")		
-        .addResourceLocations("file:///" + root + "editor/");	//실제경로
-		
-		//회원 프로필 이미지
-		registry
-		.addResourceHandler("/member/thumb/**")		//요청패턴
-		.addResourceLocations("file:///"+root+"member/");	//실제경로
-		
-		//(관리자)투어 상품 이미지
-		registry
-		.addResourceHandler("/tourItemImg/**")		//요청 주소 패턴
-		.addResourceLocations("file:///" + root + "tourItemImg/");	//실제 경로
-		System.out.println(registry);
+		// 클라우디너리 도입으로 로컬 파일 서빙 중단
 	}
-	
 }

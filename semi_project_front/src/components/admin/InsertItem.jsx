@@ -388,7 +388,9 @@ const FilePreviewItem = ({ file, deleteFile }) => {
     imgSrc = URL.createObjectURL(file);
   } else if (file.tourItemImgPath) {
     // 2. 서버에서 불러온 기존 파일 (서버 주소와 결합)
-    imgSrc = `${import.meta.env.VITE_IMG_SERVER}/tourItem/${file.tourItemImgPath}`;
+    imgSrc = file.tourItemImgPath.startsWith("http")
+      ? file.tourItemImgPath
+      : `${import.meta.env.VITE_IMG_SERVER}/tourItem/${file.tourItemImgPath}`;
   }
 
   const fileName = file.name || file.tourItemImgName || "첨부 이미지";

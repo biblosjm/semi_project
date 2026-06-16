@@ -49,7 +49,7 @@ const MenuBar = ({ editor }) => {
         })
         .then((res) => {
           console.log(res);
-          const imageUrl = `${import.meta.env.VITE_BACKSERVER}/editor/${res.data}`;
+          const imageUrl = res.data; // 클라우디너리 전체 URL 사용
           editor.chain().setImage({ src: imageUrl }).run();
         })
         .catch((err) => {

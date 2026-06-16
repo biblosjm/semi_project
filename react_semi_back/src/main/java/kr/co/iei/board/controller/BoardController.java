@@ -41,8 +41,7 @@ import kr.co.iei.utils.JwtUtils;
 public class BoardController {
 	@Autowired
 	private BoardService boardService;
-	@Value("${file.root}") 
-	private String root;
+
 	@Autowired
 	private FileUtils fileUtil; 
 	@Autowired
@@ -66,9 +65,7 @@ public class BoardController {
 	//이미지 업로드
 	@PostMapping("/image-upload")
 	public ResponseEntity<?> imageUpload(@ModelAttribute MultipartFile image) {
-	    String savepath = root + "editor/"; 
-	    File dir = new File(savepath);
-	    if(!dir.exists()) dir.mkdirs();
+	    String savepath = "editor/"; 
 	    String filepath = fileUtil.upload(savepath, image);
 	    return ResponseEntity.ok(filepath); 
 	}

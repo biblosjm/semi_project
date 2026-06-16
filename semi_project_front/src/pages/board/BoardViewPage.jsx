@@ -116,7 +116,9 @@ const BoardViewPage = () => {
                     <img
                       src={
                         board.memberThumb
-                          ? `${import.meta.env.VITE_IMG_SERVER}/member/thumb/${board.memberThumb}`
+                          ? board.memberThumb.startsWith('http')
+                            ? board.memberThumb
+                            : `${import.meta.env.VITE_IMG_SERVER}/member/thumb/${board.memberThumb}`
                           : userImage
                       }
                       alt="writer"
@@ -461,7 +463,9 @@ const BoardComment = ({
             <img
               src={
                 comment.memberThumb
-                  ? `${import.meta.env.VITE_IMG_SERVER}/member/thumb/${comment.memberThumb}`
+                  ? comment.memberThumb.startsWith('http')
+                    ? comment.memberThumb
+                    : `${import.meta.env.VITE_IMG_SERVER}/member/thumb/${comment.memberThumb}`
                   : userImage
               }
             />
