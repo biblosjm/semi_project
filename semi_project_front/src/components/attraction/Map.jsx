@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import styles from "./Map.module.css";
+import styles from "./MapStyle.module.css";
 
 function Map({ addressList, currentList }) {
   const mapDivRef = useRef(null);

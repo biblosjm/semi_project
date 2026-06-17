@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./AttractionReview.module.css";
+import styles from "./AttractionReviewStyle.module.css";
 import axios from "axios";
 
 const AttractionReview = ({ attractionNo, reviewCategory }) => {

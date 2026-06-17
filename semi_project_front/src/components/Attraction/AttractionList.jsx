@@ -1,4 +1,4 @@
-import styles from "./AttractionList.module.css";
+import styles from "./AttractionListStyle.module.css";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import axios from "axios";

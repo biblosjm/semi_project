@@ -1,4 +1,4 @@
-import styles from "./AttractionInfo.module.css";
+import styles from "./AttractionInfoStyle.module.css";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Swal from "sweetalert2";
