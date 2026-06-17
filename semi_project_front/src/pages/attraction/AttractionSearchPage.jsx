@@ -1,17 +1,17 @@
 import { useEffect, useState, useRef, use } from "react";
-import Map from "../../components/attraction/Map";
+import Map from "../../components/attraction_spot/Map";
 import styles from "./AttractionSearchPage.module.css";
 import axios from "axios";
 import SearchIcon from "@mui/icons-material/Search";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Pagination from "../../components/ui/Pagination";
-import AttractionList from "../../components/Attraction/AttractionList";
+import AttractionList from "../../components/attraction_spot/AttractionList";
 import useAuthStore from "../../components/utils/useAuthStore";
 import { useNavigate, useLocation } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
-import AttractionInfo from "../../components/attraction/AttractionInfo";
-import AttractionReview from "../../components/attraction/AttractionReview";
+import AttractionInfo from "../../components/attraction_spot/AttractionInfo";
+import AttractionReview from "../../components/attraction_spot/AttractionReview";
 import qs from "qs";
 
 const AttractionSearchPage = ({ categoryTest, setCategoryTest }) => {
