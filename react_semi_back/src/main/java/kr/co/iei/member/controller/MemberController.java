@@ -130,7 +130,7 @@ public class MemberController {
 	//유저 썸네일--------------------------------------------------------------------
 	@PatchMapping(value="{memberId}/thumbnail")//일부 정보 수정 @PatchMapping
 	public ResponseEntity<?> updateThumbnail(@PathVariable String memberId,
-												@ModelAttribute MultipartFile file) {
+												@RequestParam("file") MultipartFile file) {
 		String savepath = "member/";
 		String memberThumb = fileUtils.upload(savepath, file);
 		Member m = new Member();

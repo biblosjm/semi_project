@@ -85,7 +85,9 @@ const MemberItem = ({ member }) => {
           <img
             src={
               member.memberThumb
-                ? `${import.meta.env.VITE_IMG_SERVER}/member/thumb/${member.memberThumb}`
+                ? member.memberThumb.startsWith('http')
+                  ? member.memberThumb
+                  : `${import.meta.env.VITE_IMG_SERVER}/member/thumb/${member.memberThumb}`
                 : userImg
             }
           />

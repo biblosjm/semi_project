@@ -42,11 +42,7 @@ const MenuBar = ({ editor }) => {
       const form = new FormData();
       form.append("image", file);
       axios
-        .post(`${import.meta.env.VITE_BACKSERVER}/boards/image-upload`, form, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
+        .post(`${import.meta.env.VITE_BACKSERVER}/boards/image-upload`, form)
         .then((res) => {
           console.log(res);
           const imageUrl = res.data; // 클라우디너리 전체 URL 사용

@@ -296,12 +296,7 @@ const MemberProfileInfo = () => {
     axios
       .patch(
         `${import.meta.env.VITE_BACKSERVER}/members/${memberId}/thumbnail`,
-        form,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        },
+        form
       )
       .then((res) => {
         useAuthStore.getState().setThumb(res.data);
@@ -326,7 +321,7 @@ const MemberProfileInfo = () => {
       if (res.isConfirmed) {
         axios
           .delete(
-            `${import.meta.env.VITE_IMG_SERVER}/members/${memberId}/thumbnail`,
+            `${import.meta.env.VITE_BACKSERVER}/members/${memberId}/thumbnail`,
           )
           .then((res) => {
             if (res.data === 1 || res.data === true) {

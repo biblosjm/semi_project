@@ -64,11 +64,7 @@ const MenuBar = ({ editor }) => {
       const form = new FormData();
       form.append('image', file);
       axios
-        .post(`${import.meta.env.VITE_IMG_SERVER}/boards/image-upload`, form, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
+        .post(`${import.meta.env.VITE_BACKSERVER}/boards/image-upload`, form)
         .then((res) => {
           if (res.status === 200) {
             const imageUrl = res.data; // 클라우디너리 URL 전체가 들어옴

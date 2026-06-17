@@ -12,8 +12,8 @@
 			#{tourItemName},
 			#{tourItemAdultPrice},
 			#{tourItemKidPrice},
-			#{startPeriod},
-			#{endPeriod},
+			CAST(#{startPeriod} AS DATE),
+			CAST(#{endPeriod} AS DATE),
 			#{tourItemDays},
 			0
 		)
@@ -134,8 +134,8 @@
 			tour_item_name = #{tourItemName},
 			tour_item_adult_price = #{tourItemAdultPrice},
 			tour_item_kid_price = #{tourItemKidPrice},
-			start_period = #{startPeriod},
-			end_period = #{endPeriod},
+			start_period = CAST(#{startPeriod} AS DATE),
+			end_period = CAST(#{endPeriod} AS DATE),
 			tour_item_days = #{tourItemDays}
 		where tour_item_no = #{tourItemNo}
 			

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -64,7 +65,7 @@ public class BoardController {
 	
 	//이미지 업로드
 	@PostMapping("/image-upload")
-	public ResponseEntity<?> imageUpload(@ModelAttribute MultipartFile image) {
+	public ResponseEntity<?> imageUpload(@RequestParam("image") MultipartFile image) {
 	    String savepath = "editor/"; 
 	    String filepath = fileUtil.upload(savepath, image);
 	    return ResponseEntity.ok(filepath); 
